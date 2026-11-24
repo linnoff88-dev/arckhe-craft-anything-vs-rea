@@ -1,4 +1,4 @@
-﻿# craft-anything-vs-rea
+# craft-anything-vs-rea
 
 <div align="center">
   <img src="capa/logo.svg" alt="Arckhé AI" height="48" />
@@ -6,7 +6,7 @@
 </div>
 
 
-[![FaÃ§a a sua versÃ£o â€” Craft Anything Ã— REA](guia/assets/banner.jpg)](https://inematds.github.io/craft-anything-vs-rea/guia/)
+[![FaÃ§a a sua versÃ£o â€” Craft Anything Ã— REA](guia/assets/banner.jpg)](https://linnoff88-dev.github.io/
 
 **ðŸ‡§ðŸ‡· [PortuguÃªs](README.md) Â· ðŸ‡ºðŸ‡¸ [English](README.en.md) Â· ðŸ‡ªðŸ‡¸ [EspaÃ±ol](README.es.md)**
 
@@ -26,7 +26,7 @@ Node.js e Python 3.
 
 ## ðŸ“– Guia de uso
 
-Guia completo (landing + passo a passo): **https://inematds.github.io/craft-anything-vs-rea/guia/**
+Guia completo (landing + passo a passo): **https://linnoff88-dev.github.io/
 
 ## O que tem aqui
 
@@ -43,7 +43,7 @@ Guia completo (landing + passo a passo): **https://inematds.github.io/craft-anyt
 ## Uso rÃ¡pido
 
 ```bash
-git clone https://github.com/inematds/craft-anything-vs-rea && cd craft-anything-vs-rea
+git clone https://github.com/linnoff88-dev/craft-anything-vs-rea && cd craft-anything-vs-rea
 npm install -g playwright && npx playwright install chromium   # uma vez sÃ³
 
 # 1) ficou parecido? (estrutura nas 3 larguras; saÃ­da 0 = passou)
@@ -82,17 +82,17 @@ Quem faz: ðŸ§  vocÃª (ou sessÃ£o com o Nei) Â· âš™ï¸ script Â
 
 ## Kits relacionados
 
-[rea-engenharia-reversa](https://inematds.github.io/rea-engenharia-reversa/guia/) Â·
-[rea-com-provas](https://inematds.github.io/rea-com-provas/guia/) Â·
-[rea-sem-travas](https://inematds.github.io/rea-sem-travas/guia/) (tudo local: dsh + Ollama + REA) Â·
-[caixa-do-agente](https://inematds.github.io/caixa-do-agente/guia/) Â·
-[site-inspirado](https://inematds.github.io/site-inspirado/guia/) Â·
-[site-que-vende](https://inematds.github.io/site-que-vende/guia/)
+[rea-engenharia-reversa](https://linnoff88-dev.github.io/ Â·
+[rea-com-provas](https://linnoff88-dev.github.io/ Â·
+[rea-sem-travas](https://linnoff88-dev.github.io/ (tudo local: dsh + Ollama + REA) Â·
+[caixa-do-agente](https://linnoff88-dev.github.io/ Â·
+[site-inspirado](https://linnoff88-dev.github.io/ Â·
+[site-que-vende](https://linnoff88-dev.github.io/
 
 ## LicenÃ§a
 
 MIT. Craft Anything e REA sÃ£o projetos de terceiros, com as licenÃ§as deles.
-Feito para a comunidade [INEMA.CLUB](https://inema.club).
+Feito para a comunidade [ARCKHÉ AI](https://ARCKHÉ AI).
 
 ---
 
