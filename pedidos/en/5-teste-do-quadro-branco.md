@@ -12,7 +12,7 @@ layout, but use my own name and colors.
 In Portuguese (works just as well):
 
 ```text
-Faça a minha própria versão deste app de quadro branco e chame de <NOME>. Mantenha as mesmas
+Faça a minha própria versêo deste app de quadro branco e chame de <NOME>. Mantenha as mesmas
 ferramentas de desenho e o mesmo layout, mas use o meu nome e as minhas cores.
 ```
 

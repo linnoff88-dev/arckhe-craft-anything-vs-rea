@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// semelhanca.js — a etapa "Conferir": compara o ORIGINAL com a SUA VERSÃO em 3 larguras de tela.
+// semelhanca.js — a etapa "Conferir": compara o ORIGINAL com a SUA VERSêO em 3 larguras de tela.
 // Tira print das duas páginas, mede a semelhança de ESTRUTURA (luz e sombra, onde está cada coisa)
 // separada da semelhança de COR, e salva lado a lado + mapa de diferenças.
 // Funciona com qualquer agente (com ou sem Craft Anything). Só precisa de Node 18+ e Playwright.
@@ -8,23 +8,23 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { execSync } = require('node:child_process');
 
-const AJUDA = `semelhanca.js — quão parecida a sua versão está do original (etapa "Conferir").
+const AJUDA = `semelhanca.js — quêo parecida a sua versêo está do original (etapa "Conferir").
 
 Uso:  node conferir/semelhanca.js <original> <sua-versao> [opções]
       <original> e <sua-versao>: endereço http(s)://… ou caminho de um arquivo .html
 
 Opções:
-  --larguras 1440,820,390   larguras de tela (padrão: notebook, tablet, celular)
-  --altura 900              altura da janela (padrão 900)
-  --pagina-inteira          compara a página toda, não só a primeira tela
-  --meta 85                 nota mínima de ESTRUTURA em cada largura (padrão 85)
-  --meta-cor N              também exige nota de COR ≥ N (padrão: cor só informa)
-  --saida pasta             onde salvar prints e relatório (padrão: ./conferencia)
-  --esperar 300             ms de espera depois de carregar (padrão 300)
+  --larguras 1440,820,390   larguras de tela (padrêo: notebook, tablet, celular)
+  --altura 900              altura da janela (padrêo 900)
+  --pagina-inteira          compara a página toda, nêo só a primeira tela
+  --meta 85                 nota mínima de ESTRUTURA em cada largura (padrêo 85)
+  --meta-cor N              também exige nota de COR ≥ N (padrêo: cor só informa)
+  --saida pasta             onde salvar prints e relatório (padrêo: ./conferencia)
+  --esperar 300             ms de espera depois de carregar (padrêo 300)
   --json                    imprime o relatório em JSON
 
 Saída: 0 = todas as larguras bateram a meta · 1 = alguma ficou abaixo · 2 = erro
-       (página não abriu, 404, arquivo faltando, Playwright ausente, opção errada).`;
+       (página nêo abriu, 404, arquivo faltando, Playwright ausente, opçêo errada).`;
 
 function sair(msg, codigo) { console.error(msg); process.exit(codigo); }
 
@@ -33,7 +33,7 @@ function carregarPlaywright() {
   for (const l of lugares) { const p = path.join(l, 'node_modules', 'playwright'); if (fs.existsSync(p)) return require(p); }
   try { return require('playwright'); } catch (_) { /* tenta o global */ }
   try { const g = execSync('npm root -g', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); const p = path.join(g, 'playwright'); if (fs.existsSync(p)) return require(p); } catch (_) { /* segue */ }
-  sair('Playwright não encontrado. Rode uma vez (baixa o Chromium, uns 150 MB):\n  npm install -g playwright && npx playwright install chromium', 2);
+  sair('Playwright nêo encontrado. Rode uma vez (baixa o Chromium, uns 150 MB):\n  npm install -g playwright && npx playwright install chromium', 2);
 }
 
 function lerArgs(argv) {
@@ -50,17 +50,17 @@ function lerArgs(argv) {
     else if (a === '--saida') o.saida = val();
     else if (a === '--esperar') { o.esperar = Number(val()); if (!(o.esperar >= 0 && o.esperar <= 60000)) sair('--esperar: entre 0 e 60000.', 2); }
     else if (a === '--json') o.json = true;
-    else if (a.startsWith('--')) sair(`Opção desconhecida: ${a}\n\n${AJUDA}`, 2);
+    else if (a.startsWith('--')) sair(`Opçêo desconhecida: ${a}\n\n${AJUDA}`, 2);
     else o.alvos.push(a);
   }
-  if (o.alvos.length !== 2) sair(`Passe o original e a sua versão.\n\n${AJUDA}`, 2);
+  if (o.alvos.length !== 2) sair(`Passe o original e a sua versêo.\n\n${AJUDA}`, 2);
   return o;
 }
 
 function paraUrl(alvo) {
   if (/^https?:\/\//i.test(alvo) || /^file:\/\//i.test(alvo)) return alvo;
   const p = path.resolve(alvo);
-  if (!fs.existsSync(p)) sair(`Arquivo não encontrado: ${alvo}`, 2);
+  if (!fs.existsSync(p)) sair(`Arquivo nêo encontrado: ${alvo}`, 2);
   return 'file://' + p;
 }
 
@@ -71,7 +71,7 @@ async function fotografar(contexto, url, largura, o) {
   await pag.setViewportSize({ width: largura, height: o.altura });
   let resp;
   try { resp = await pag.goto(url, { waitUntil: 'load', timeout: 30000 }); }
-  catch (e) { await pag.close(); throw new Error(`não abriu ${url}: ${e.message.split('\n')[0]}`); }
+  catch (e) { await pag.close(); throw new Error(`nêo abriu ${url}: ${e.message.split('\n')[0]}`); }
   if (resp && resp.status() >= 400) { await pag.close(); throw new Error(`${url} respondeu ${resp.status()}`); }
   await pag.addStyleTag({ content: CONGELAR }).catch(() => {});
   await pag.evaluate(() => document.fonts && document.fonts.ready).catch(() => {});
@@ -82,7 +82,7 @@ async function fotografar(contexto, url, largura, o) {
   return { titulo, png };
 }
 
-// Toda a conta roda dentro do próprio Chromium (canvas), assim não precisa de outra biblioteca.
+// Toda a conta roda dentro do próprio Chromium (canvas), assim nêo precisa de outra biblioteca.
 async function comparar(contexto, pngA, pngB) {
   const pag = await contexto.newPage();
   const r = await pag.evaluate(async ([a64, b64]) => {
@@ -107,8 +107,8 @@ async function comparar(contexto, pngA, pngB) {
     mx.putImageData(md, 0, 0);
 
     // 2) estrutura: SSIM em tons de cinza, por blocos de 8x8, numa cópia reduzida (até 480 px de largura).
-    //    Conta só blocos onde ALGUMA das duas tem conteúdo (variação de luz): fundo liso igual nos dois
-    //    não infla a nota. Duas páginas escuras com conteúdo diferente ficam com nota baixa.
+    //    Conta só blocos onde ALGUMA das duas tem conteúdo (variaçêo de luz): fundo liso igual nos dois
+    //    nêo infla a nota. Duas páginas escuras com conteúdo diferente ficam com nota baixa.
     const esc = Math.min(1, 480 / W); const w = Math.max(8, Math.round(W * esc)), h = Math.max(8, Math.round(H * esc));
     const reduz = img => { const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'); x.fillStyle = '#808080'; x.fillRect(0, 0, w, h); x.drawImage(img, 0, 0, img.width * esc, img.height * esc); return x.getImageData(0, 0, w, h).data; };
     const ra = reduz(A), rb = reduz(B);
@@ -130,7 +130,7 @@ async function comparar(contexto, pngA, pngB) {
     const estrutura = n ? soma / n : (nTudo ? somaTudo / nTudo : 1);
 
     // 3) cor: histograma de cores (8x8x8 faixas) SEM a cor de fundo (a faixa mais comum de cada página),
-    //    para o fundo igual não esconder que os botões e destaques mudaram de cor. Mede o fundo à parte.
+    //    para o fundo igual nêo esconder que os botões e destaques mudaram de cor. Mede o fundo à parte.
     const hist = d => { const hs = new Float64Array(512); for (let i = 0; i < d.length; i += 4) hs[(d[i] >> 5) * 64 + (d[i + 1] >> 5) * 8 + (d[i + 2] >> 5)]++; return hs; };
     const ha = hist(ra), hb = hist(rb);
     const topo = hs => hs.indexOf(Math.max(...hs));
@@ -141,7 +141,7 @@ async function comparar(contexto, pngA, pngB) {
     if (A2.t < total * 0.01 || B2.t < total * 0.01) { for (let k = 0; k < 512; k++) inter += Math.min(ha[k], hb[k]) / total; }
     else { for (let k = 0; k < 512; k++) inter += Math.min(A2.r[k] / A2.t, B2.r[k] / B2.t); if (fa !== fb) inter *= 0.5; }
 
-    // lado a lado: original | sua versão
+    // lado a lado: original | sua versêo
     const lado = document.createElement('canvas'); lado.width = W * 2 + 16; lado.height = H;
     const lx = lado.getContext('2d'); lx.fillStyle = '#FACC15'; lx.fillRect(0, 0, lado.width, H); lx.drawImage(A, 0, 0); lx.drawImage(B, W + 16, 0);
 
@@ -164,7 +164,7 @@ async function principal() {
   const { chromium } = carregarPlaywright();
   let nav;
   try { nav = await chromium.launch(); }
-  catch (e) { sair(`Não consegui abrir o Chromium: ${e.message.split('\n')[0]}\n  Rode: npx playwright install chromium`, 2); }
+  catch (e) { sair(`Nêo consegui abrir o Chromium: ${e.message.split('\n')[0]}\n  Rode: npx playwright install chromium`, 2); }
   const contexto = await nav.newContext({ deviceScaleFactor: 1, reducedMotion: 'reduce', colorScheme: 'dark' });
   fs.mkdirSync(o.saida, { recursive: true });
   const rel = { original: urlA, sua: urlB, meta: o.meta, metaCor: o.metaCor, paginaInteira: o.inteira, larguras: [] };
@@ -187,12 +187,12 @@ async function principal() {
   rel.passa = rel.larguras.every(x => x.passa);
   const nome = { 1440: 'notebook', 820: 'tablet', 768: 'tablet', 390: 'celular' };
   const linhas = rel.larguras.map(x => `| ${x.largura} px ${nome[x.largura] ? '(' + nome[x.largura] + ')' : ''} | ${x.estrutura} | ${x.cor} | ${x.pixelsIguais}% | ${x.alturaOriginal} / ${x.alturaSua} | ${x.passa ? 'passa' : 'ABAIXO'} |`);
-  const md = [`# Conferência de semelhança`, '', `- Original: ${urlA} — título: "${rel.tituloOriginal}"`, `- Sua versão: ${urlB} — título: "${rel.tituloSua}"`,
+  const md = [`# Conferência de semelhança`, '', `- Original: ${urlA} — título: "${rel.tituloOriginal}"`, `- Sua versêo: ${urlB} — título: "${rel.tituloSua}"`,
     `- Meta de estrutura: ${o.meta}${o.metaCor != null ? ` · meta de cor: ${o.metaCor}` : ' · cor só informa'}${o.inteira ? ' · página inteira' : ' · primeira tela'}`, '',
     '| Largura | Estrutura | Cor | Pixels iguais | Altura (orig / sua) | Resultado |', '|---|---|---|---|---|---|', ...linhas, '',
-    `**${rel.passa ? 'Passa' : 'Ainda não passa'}.** Veja \`lado-a-lado-*.png\` e \`diferencas-*.png\` (vermelho = diferente).`,
+    `**${rel.passa ? 'Passa' : 'Ainda nêo passa'}.** Veja \`lado-a-lado-*.png\` e \`diferencas-*.png\` (vermelho = diferente).`,
     '', 'Estrutura = onde está cada coisa (luz e sombra, ignora a cor). Cor = se as paletas batem. Pixels iguais = só referência.',
-    'Nota alta NÃO prova que funciona: confira as funções com `conferir/funcoes.py`.'].join('\n');
+    'Nota alta NêO prova que funciona: confira as funções com `conferir/funcoes.py`.'].join('\n');
   fs.writeFileSync(path.join(o.saida, 'relatorio.md'), md + '\n');
   fs.writeFileSync(path.join(o.saida, 'relatorio.json'), JSON.stringify(rel, null, 2) + '\n');
   if (o.json) console.log(JSON.stringify(rel, null, 2)); else console.log(md + `\n\nArquivos em: ${path.resolve(o.saida)}`);

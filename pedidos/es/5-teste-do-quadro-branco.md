@@ -16,7 +16,7 @@ el mismo diseño, pero usa mi nombre y mis colores.
 En portugués (funciona igual):
 
 ```text
-Faça a minha própria versão deste app de quadro branco e chame de <NOME>. Mantenha as mesmas
+Faça a minha própria versêo deste app de quadro branco e chame de <NOME>. Mantenha as mesmas
 ferramentas de desenho e o mesmo layout, mas use o meu nome e as minhas cores.
 ```
 

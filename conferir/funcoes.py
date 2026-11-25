@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""funcoes.py — "parecido não é funcionar": gera e confere a lista de testes de FUNÇÃO da sua versão.
+"""funcoes.py — "parecido nêo é funcionar": gera e confere a lista de testes de FUNÇêO da sua versêo.
 
 Uso:
   python3 conferir/funcoes.py modelos
   python3 conferir/funcoes.py gerar <modelo> --nome "MeuApp" [--saida checklist.md]
   python3 conferir/funcoes.py conferir <checklist.md>
 
-Na lista gerada, cada função vira uma linha:
+Na lista gerada, cada funçêo vira uma linha:
   - [ ] F01 Retângulo — como testar ... | prova:
 Quem testou (você ou o agente) troca [ ] por [x] e escreve depois de "prova:" o que viu
 (print, arquivo, comando e saída). "conferir" só aprova quando TODAS as linhas têm [x] e prova.
 Aceita também "proof:" e "prueba:" (pedidos em inglês e espanhol).
 
-Saída: 0 = todas provadas · 1 = falta alguma · 2 = erro (arquivo ou modelo não existe, formato errado).
-Só usa a biblioteca padrão do Python 3.
+Saída: 0 = todas provadas · 1 = falta alguma · 2 = erro (arquivo ou modelo nêo existe, formato errado).
+Só usa a biblioteca padrêo do Python 3.
 """
 import json
 import re
@@ -37,7 +37,7 @@ def modelos():
 def carregar(nome):
     p = PASTA_MODELOS / f"{nome}.json"
     if not p.is_file():
-        erro(f"Modelo '{nome}' não existe. Modelos: {', '.join(modelos())}")
+        erro(f"Modelo '{nome}' nêo existe. Modelos: {', '.join(modelos())}")
     try:
         d = json.loads(p.read_text(encoding="utf-8"))
         assert d["funcoes"] and all({"id", "nome", "como"} <= set(f) for f in d["funcoes"])
@@ -70,7 +70,7 @@ def gerar(nome_modelo, nome_app, saida):
 def conferir(caminho):
     p = Path(caminho)
     if not p.is_file():
-        erro(f"Arquivo não encontrado: {caminho}")
+        erro(f"Arquivo nêo encontrado: {caminho}")
     total, provadas, faltam, vistos = 0, 0, [], set()
     for n, linha in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
         m = LINHA.match(linha)
@@ -85,7 +85,7 @@ def conferir(caminho):
         pv = PROVA.search(m.group("resto"))
         prova = (pv.group("prova").strip() if pv else "")
         if m.group("marca").lower() != "x":
-            faltam.append(f"{fid} (linha {n}): não testada")
+            faltam.append(f"{fid} (linha {n}): nêo testada")
         elif len(prova) < 8:
             faltam.append(f"{fid} (linha {n}): marcada sem prova (escreva o que viu, 8+ letras)")
         else:
@@ -109,14 +109,14 @@ def main(argv):
     elif cmd == "gerar":
         if not resto or resto[0].startswith("--"):
             erro("Diga o modelo: funcoes.py gerar <modelo> --nome X")
-        nome_app, saida, i = "minha versão", None, 1
+        nome_app, saida, i = "minha versêo", None, 1
         while i < len(resto):
             if resto[i] == "--nome" and i + 1 < len(resto):
                 nome_app, i = resto[i + 1], i + 2
             elif resto[i] == "--saida" and i + 1 < len(resto):
                 saida, i = resto[i + 1], i + 2
             else:
-                erro(f"Opção desconhecida ou sem valor: {resto[i]}")
+                erro(f"Opçêo desconhecida ou sem valor: {resto[i]}")
         gerar(resto[0], nome_app, saida)
     elif cmd == "conferir":
         if len(resto) != 1:

@@ -1,6 +1,6 @@
 {
   "nome": "Quadro branco (tipo Excalidraw)",
-  "descricao": "O teste do quadro branco: a cópia bonita que não desenha não serve.",
+  "descricao": "O teste do quadro branco: a cópia bonita que nêo desenha nêo serve.",
   "funcoes": [
     {"id": "F01", "nome": "Retângulo", "como": "Escolha o retângulo, arraste na tela: aparece um retângulo do tamanho arrastado."},
     {"id": "F02", "nome": "Círculo / elipse", "como": "Escolha a elipse, arraste: aparece a elipse."},
@@ -13,10 +13,10 @@
     {"id": "F09", "nome": "Selecionar e mover", "como": "Clique numa forma e arraste: ela muda de lugar."},
     {"id": "F10", "nome": "Redimensionar", "como": "Puxe a alça do canto de uma forma selecionada: ela muda de tamanho."},
     {"id": "F11", "nome": "Apagar", "como": "Selecione uma forma e aperte Delete (ou a borracha): ela some."},
-    {"id": "F12", "nome": "Desfazer / refazer", "como": "Ctrl+Z desfaz a última ação; Ctrl+Shift+Z (ou Ctrl+Y) refaz."},
+    {"id": "F12", "nome": "Desfazer / refazer", "como": "Ctrl+Z desfaz a última açêo; Ctrl+Shift+Z (ou Ctrl+Y) refaz."},
     {"id": "F13", "nome": "Zoom", "como": "Ctrl + roda do mouse ou os botões + e −: a tela aproxima e afasta; o 100% volta."},
-    {"id": "F14", "nome": "Tema claro / escuro", "como": "O botão de tema troca as cores da tela inteira e as formas continuam visíveis."},
+    {"id": "F14", "nome": "Tema claro / escuro", "como": "O botêo de tema troca as cores da tela inteira e as formas continuam visíveis."},
     {"id": "F15", "nome": "Exportar imagem", "como": "Exportar PNG (ou SVG) baixa um arquivo que abre e mostra o desenho."},
-    {"id": "F16", "nome": "Nome e marca próprios", "como": "Não aparece o nome, o logo nem o texto do original em lugar nenhum (título da aba, menu, rodapé)."}
+    {"id": "F16", "nome": "Nome e marca próprios", "como": "Nêo aparece o nome, o logo nem o texto do original em lugar nenhum (título da aba, menu, rodapé)."}
   ]
 }

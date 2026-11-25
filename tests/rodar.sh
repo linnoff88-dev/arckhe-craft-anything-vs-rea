@@ -11,22 +11,22 @@ campo(){ node -e 'const r=require(process.argv[1]);console.log(Math[process.argv
 
 echo "1) semelhanca.js"
 timeout 180 $S $P/original.html $P/original.html --saida "$T/igual" --json > /dev/null 2>&1; rc_e $? 0 "página idêntica passa"
-[ "$(campo "$T/igual/relatorio.json" estrutura min)" = "100" ] && ok "idêntica: estrutura 100 nas 3 larguras" || ruim "idêntica não deu 100"
-for f in lado-a-lado-1440.png diferencas-390.png relatorio.md relatorio.json; do [ -s "$T/igual/$f" ] && ok "gera $f" || ruim "não gerou $f"; done
+[ "$(campo "$T/igual/relatorio.json" estrutura min)" = "100" ] && ok "idêntica: estrutura 100 nas 3 larguras" || ruim "idêntica nêo deu 100"
+for f in lado-a-lado-1440.png diferencas-390.png relatorio.md relatorio.json; do [ -s "$T/igual/$f" ] && ok "gera $f" || ruim "nêo gerou $f"; done
 
 timeout 180 $S $P/original.html $P/verde.html --saida "$T/verde" --json > /dev/null 2>&1; rc_e $? 0 "mesma página com outro nome e cor verde passa (a cor só informa)"
 [ "$(campo "$T/verde/relatorio.json" estrutura min | cut -d. -f1)" -ge 90 ] && ok "verde: estrutura ≥ 90" || ruim "verde: estrutura < 90"
-[ "$(campo "$T/verde/relatorio.json" cor max | cut -d. -f1)" -lt 95 ] && ok "verde: a nota de cor cai (< 95)" || ruim "verde: a nota de cor não percebeu a troca de cor"
+[ "$(campo "$T/verde/relatorio.json" cor max | cut -d. -f1)" -lt 95 ] && ok "verde: a nota de cor cai (< 95)" || ruim "verde: a nota de cor nêo percebeu a troca de cor"
 timeout 180 $S $P/original.html $P/verde.html --saida "$T/verde2" --meta-cor 95 > /dev/null 2>&1; rc_e $? 1 "verde com --meta-cor 95 reprova"
 
 timeout 180 $S $P/original.html $P/escura-diferente.html --saida "$T/dif" --json > /dev/null 2>&1; rc_e $? 1 "outra página escura reprova"
 [ "$(campo "$T/dif/relatorio.json" pixelsIguais min | cut -d. -f1)" -ge 90 ] && ok "armadilha: mais de 90% dos pixels iguais (fundo escuro)…" || ruim "armadilha mudou: pixels iguais < 90"
 [ "$(campo "$T/dif/relatorio.json" estrutura max | cut -d. -f1)" -lt 50 ] && ok "…mas a estrutura fica < 50" || ruim "estrutura de páginas diferentes ≥ 50"
 
-timeout 60 $S $P/original.html $P/nao-existe.html > /dev/null 2>&1; rc_e $? 2 "arquivo que não existe = erro"
-timeout 60 $S $P/original.html > /dev/null 2>&1; rc_e $? 2 "faltando a sua versão = erro"
+timeout 60 $S $P/original.html $P/nao-existe.html > /dev/null 2>&1; rc_e $? 2 "arquivo que nêo existe = erro"
+timeout 60 $S $P/original.html > /dev/null 2>&1; rc_e $? 2 "faltando a sua versêo = erro"
 timeout 60 $S $P/original.html $P/verde.html --larguras 10 > /dev/null 2>&1; rc_e $? 2 "largura inválida = erro"
-timeout 60 $S $P/original.html $P/verde.html --opcao-que-nao-existe > /dev/null 2>&1; rc_e $? 2 "opção desconhecida = erro"
+timeout 60 $S $P/original.html $P/verde.html --opcao-que-nao-existe > /dev/null 2>&1; rc_e $? 2 "opçêo desconhecida = erro"
 timeout 60 $S $P/original.html $P/verde.html --saida "$T/l" --larguras 600 --pagina-inteira > /dev/null 2>&1; rc_e $? 0 "uma largura só + página inteira"
 # servidor que responde 404 numa porta livre escolhida pelo sistema (porta 0), só em 127.0.0.1
 node -e 'const s=require("http").createServer((q,r)=>{r.writeHead(404);r.end("nao achei")});s.listen(0,"127.0.0.1",()=>{require("fs").writeFileSync(process.argv[1],String(s.address().port))});setTimeout(()=>s.close(),60000)' "$T/porta" & SRV=$!
@@ -45,8 +45,8 @@ sed '0,/| prova: print em provas\/f.png mostra a forma/s//| prova: ok/' "$T/chei
 $F conferir "$T/curta.md" | grep -q "sem prova" && ok "prova curta demais é recusada" || ruim "aceitou prova de 2 letras"
 sed 's/| prova:/| proof:/' "$T/cheia.md" > "$T/en.md"; $F conferir "$T/en.md" > /dev/null; rc_e $? 0 "aceita 'proof:' (pedido em inglês)"
 sed 's/| prova:/| prueba:/' "$T/cheia.md" > "$T/es.md"; $F conferir "$T/es.md" > /dev/null; rc_e $? 0 "aceita 'prueba:' (pedido em espanhol)"
-$F conferir "$T/nao-existe.md" > /dev/null 2>&1; rc_e $? 2 "arquivo que não existe = erro"
-$F gerar modelo-que-nao-existe > /dev/null 2>&1; rc_e $? 2 "modelo que não existe = erro"
+$F conferir "$T/nao-existe.md" > /dev/null 2>&1; rc_e $? 2 "arquivo que nêo existe = erro"
+$F gerar modelo-que-nao-existe > /dev/null 2>&1; rc_e $? 2 "modelo que nêo existe = erro"
 echo "nada aqui" > "$T/vazio.md"; $F conferir "$T/vazio.md" > /dev/null 2>&1; rc_e $? 2 "arquivo sem linhas F01 = erro"
 
 echo "3) pedidos prontos nos 3 idiomas usam o formato que o funcoes.py lê"
